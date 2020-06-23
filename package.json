@@ -1,0 +1,31 @@
+{ "name": "ubborg-bundleurl-util-pmb",
+  "version": "0.0.1",
+  "description": "Convert and resolve ubborg bundle URLs.",
+  "keywords": [],
+
+  "author": "M.K. (https://github.com/mk-pmb)",
+  "homepage": "https://github.com/mk-pmb/ubborg-bundleurl-util-pmb-js/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mk-pmb/ubborg-bundleurl-util-pmb-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mk-pmb/ubborg-bundleurl-util-pmb-js/issues"
+  },
+  "contributors": [],
+
+  "private": false, "license": "ISC",
+
+  "main": "bu.js",
+  "scripts": { "test": "nodejs test/all.js" },
+  "directories": { "test": "test" },
+
+  "dependencies": {},
+  "browser": {
+  },
+  "devDependencies": {
+  },
+
+
+  "npm vs. BOM = Unexpected token": "-*- coding: UTF-8 -*-"
+}
