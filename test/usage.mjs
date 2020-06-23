@@ -6,6 +6,7 @@ import test from 'p-tape';
 
 import buu from '..';
 
+
 test('reversible shortening', (t) => {
   function c(shortUrl, fullUrl) {
     t.strictEqual(buu.href(shortUrl), fullUrl);
@@ -26,9 +27,7 @@ test('reversible shortening', (t) => {
 
 
 test('lossy shortening', (t) => {
-  function s(orig, shorter) {
-    t.strictEqual(buu.shorten(orig), shorter);
-  }
+  function s(orig, shorter) { t.strictEqual(buu.shorten(orig), shorter); }
 
   s('ab/cd/..',       'ab');
   s('ab/cd/../',      'ab/');
@@ -37,3 +36,48 @@ test('lossy shortening', (t) => {
 
   t.end();
 });
+
+
+test('relative href', (t) => {
+  function h(base, dest, want) {
+    t.strictEqual(buu.href(base, dest), h.prefix + want);
+  }
+
+  h.prefix = 'file+cwd:///';
+  h('', 'ab', 'ab');
+  h('', 'ab/', 'ab/');
+  h('', 'ab/cd', 'ab/cd');
+  h('ab/cd', '..', '');
+  h('ab/cd', '../..', '');
+  h('ab/cd/', '..', 'ab/');
+  h('ab/cd/', '../', 'ab/');
+  h('ab/cd/', '../..', '');
+  h('ab/cd/', '../../', '');
+  h('ab/cd/ef', '../..', '');
+  h('ab/cd/ef', '../../', '');
+
+  h.prefix = 'cjs:///';
+  h('cjs:@org/pkg', 'sameorg-sibling-pkg', '@org/sameorg-sibling-pkg');
+  h('cjs:@org/pkg/', 'foo', '@org/pkg/foo');
+  h('cjs:@org/pkg/', 'foo/', '@org/pkg/foo/');
+  h('cjs:@org/pkg/foo/', '../bar/', '@org/pkg/bar/');
+  h('cjs:@org/pkg/foo/', '../bar/qux', '@org/pkg/bar/qux');
+
+  t.end();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* scroll */
