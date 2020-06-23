@@ -17,7 +17,7 @@ const hostlessProtos = [
 function urlify(href, base) { return String(new urlLib.URL(href, base)); }
 
 function splitProto(url) {
-  const m = rx.proto.exec(url);
+  const m = rx.proto.exec(url || '');
   if (!m) { return false; }
   return { proto: m[1], slashes: m[2], remainder: url.slice(m[0].length) };
 }
@@ -29,8 +29,13 @@ function canonicalizeProtocol(orig) {
   return orig;
 }
 
-
 const normPath = pathLib.normalize;
+
+function resolvePreserveTrailingSlash(orig) {
+  const abso = pathLib.resolve(orig);
+  if (orig.endsWith('/') && (!abso.endsWith('/'))) { return abso + '/'; }
+  return abso;
+}
 
 
 const uu = {
@@ -62,8 +67,7 @@ const uu = {
         if (!r) { return '/'; }
         return normPath('/' + r);
       case 'file+cwd':
-        if (!r) { return '.'; }
-        return r && normPath('./' + r);
+        return resolvePreserveTrailingSlash(r);
       case 'cjs':
         return r;
     }
