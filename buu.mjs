@@ -41,6 +41,7 @@ function resolvePreserveTrailingSlash(orig) {
 const uu = {
 
   cwdUrl,
+  splitProto,
 
   shorten(url) {
     const { proto: p, remainder: r } = splitProto(url);
