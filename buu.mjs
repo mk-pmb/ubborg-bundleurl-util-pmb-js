@@ -61,7 +61,7 @@ const uu = {
     return urlify(canonicalizeProtocol(dest), baseNorm);
   },
 
-  toModuleId(url) {
+  toModuleId(url, opt) {
     const { proto: p, remainder: r } = splitProto(url);
     switch (p) {
       case 'file':
@@ -72,6 +72,8 @@ const uu = {
       case 'cjs':
         return r;
     }
+    const { ifUnsupported } = (opt || false);
+    if (ifUnsupported !== undefined) { return ifUnsupported; }
     throw new Error('Unsupported protocol schema: ' + url);
   },
 

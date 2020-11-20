@@ -33,13 +33,20 @@ If `dest` is omitted or false-y, returns the full ("un-`shorten()`-ed")
 representation of `baseUrl`.
 
 
-### .toModuleId(url)
+### .toModuleId(url[, opt])
 
 Return a CommonJS-style module identifiers suitable for dynamic import.
 This works on a purely theoretical basis, with no actual file system lookups.
 Thus, if the `url` assumes ubborg-specific features like slashable import,
 the resulting module identifiers may require a suitably extended dynamic
 import facility.
+
+`opt` is an optional options object that supports these optional keys:
+
+* `ifUnsupported`: If `url` cannot be understood as anything that could be
+  resolved to a CJS module ID, and this option is set to anything other than
+  `undefined`, the option value is returned, rather than an Error thrown.
+
 
 
 ### .cwdUrl
